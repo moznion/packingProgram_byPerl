@@ -1,0 +1,55 @@
+Copyright (c) 2012 moznion http://d.hatena.ne.jp/moznion/
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+以下に定める条件に従い，本ソフトウェアおよび関連文書のファイル（以下「ソフトウェア」）の複製を取得するすべての人に対し、ソフトウェアを無制限に扱うことを無償で許可します。これには、ソフトウェアの複製を使用、複写、変更、結合、掲載、頒布、サブライセンス、および/または販売する権利、およびソフトウェアを提供する相手に同じことを許可する権利も無制限に含まれます。
+
+上記の著作権表示および本許諾表示を、ソフトウェアのすべての複製または重要な部分に記載するものとします。
+
+ソフトウェアは「現状のまま」で、明示であるか暗黙であるかを問わず、何らの保証もなく提供されます。ここでいう保証とは、商品性、特定の目的への適合性、および権利非侵害についての保証も含みますが、それに限定されるものではありません。 作者または著作権者は、契約行為、不法行為、またはそれ以外であろうと、ソフトウェアに起因または関連し、あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、その他の義務について何らの責任も負わないものとします。
+
+---------------------------------------------------------------------------------------
+
+[概要]
+JSON 形式で記述されている外部ファイルの内容に従って、ファイル・ディレクトリを1つのtar ファイルにパッケージします。
+
+
+[とりあえず]
+JSON 形式のファイルの記述フォーマットや、使い方はsample/ を見ていただければ解ると思います。
+
+
+[使い方]
+./ppp.pl jsonFile1 jsonFile2
+
+- ppp.pl: 本体です。
+- jsonFile1: tar ファイルに加えるファイル・ディレクトリを指定するファイルです。JSON 形式で記述します。必須です。
+- jsonFile2: jsonFile1 で指定したファイル・ディレクトリの中から、tar に加えたくないファイル・ディレクトリを指定するファイルです。
+             JSON 形式で記述します。こちらはオプションです。
+
+
+[jsonFile1 の記述方法]
+1行目はtar ファイルの名前(hoge.tar にしたければhoge)を記述してください。
+2行目以降がJSON 形式での記述となります。フォーマットは以下のとおりです。
+
+{"location":"./hoge", "type":"(file|dir)", "target":"/fuga"}
+- location: tar ファイルに加えたいファイル・ディレクトリの位置を「相対パス」で指定してください。
+- type: location に記述したものがファイルであるのか(file)、ディレクトリであるのか(dir) を指定してください。
+- target: tar ファイル内でのディレクトリ構造を記述します。もしも、location に記述したものを
+          tar ファイルのルートに配置したければ"/"を記述してください。
+          任意の位置に配置したい場合は"/fuga"のように指定します。こうすると、tar ファイル内のfuga ディレクトリの下に配置されます。
+          (注意: 必ず最初の文字に"/"を加えてください。)
+
+
+[jsonFile2 の記述方法]
+1行目はtar ファイルの名前(hoge.tar にしたければhoge)を記述してください。
+2行目以降がJSON 形式での記述となります。フォーマットは以下のとおりです。
+
+{"type":"(file|dir)", "target":"/fuga"}
+- type: tar から排除する対象がファイルであるのか(file)、ディレクトリであるのか(dir) を指定してください。
+- target: tar ファイルから排除するファイル・ディレクトリを記述してください。
+          位置は、「本来、tar ファイル内に配置されるはずだった位置」を指定してください。
+          (注意: 必ず最初の文字に"/"を加えてください。)

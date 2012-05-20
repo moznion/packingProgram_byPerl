@@ -1,0 +1,3 @@
+ppp_sample
+{"type":"file", "target":"/a"}
+{"type":"dir", "target":"/sampleDir02/test/hoge"}

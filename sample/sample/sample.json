@@ -1,0 +1,5 @@
+ppp_sample
+{"location":"../sampleFile01", "type":"file", "target":"/sample01"}
+{"location":"./sampleFile02", "type":"file", "target":"/"}
+{"location":"./sampleDir01", "type":"dir", "target":"/"}
+{"location":"../sampleDir02", "type":"dir", "target":"/sampleDir02"}
