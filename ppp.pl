@@ -58,8 +58,10 @@ sub getData {
 
     my @inputData;
     foreach (<FH>) {
-        s/\x0D?\x0A$//g; # chomp
-        push(@inputData, $_);
+	s/\x0D?\x0A$//g; # chomp
+	unless($_ =~ /^#/) {
+	    push(@inputData, $_);
+	}
     }
 
     return($targetDirectoryName, @inputData);
